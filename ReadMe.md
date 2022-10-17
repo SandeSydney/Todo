@@ -5,7 +5,7 @@ Contained in this folder is an assignment project that was given after the secon
 The assignment needed me to be creative and apply the JS knowledge learnt. Along with it is the use
 of CSS and HTML to manipulate the DOM. The following were the requirements of the site:
 
-###### Use HTML, CSS and JavaScrip. No Library or Framework, No Database too
+###### Use HTML, CSS and JavaScript. No Library or Framework, No Database too
 
 **This assignment is to build a Todo Application that is supposed to do the following:**
 - Able to create a task with a title, description and date (expected completion date)
