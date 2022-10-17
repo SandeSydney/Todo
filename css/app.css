@@ -98,7 +98,7 @@ i{
 * SECTION TO ADD NEW TODO'S
 ********************************************* */
 .section-add{
-
+    display: none;
 }
 
 form{
@@ -131,4 +131,8 @@ form{
 .buttons button{
     width: 100px;
     padding: 12px;
+    border-radius: 5px;
+    border: none;
+    color: #dddddf;
+    font-weight: 600;
 }
