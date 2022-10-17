@@ -1,0 +1,134 @@
+/* Removing default padding and margins */
+* {
+    padding: 0%;
+    margin: 0%;
+}
+
+/* Body CSS */
+body{
+    background-color: #101015;
+    color: #dddddf;
+}
+
+section{
+    border-radius: 12px;
+    background-color: #20212C;
+    width: 40%;
+    height: 90%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.container{
+    height: 100%;
+    margin: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ******************************************
+* SECTION TO LIST THE TODO'S
+********************************************* */
+.section-list{
+    display: none;
+}
+
+.title{
+    background-color: #272833;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.section-list .title .btns{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+}
+
+.section-list .title .btns a{
+    color: #d3d3d3;
+}
+
+i{
+    font-size: 25px;
+}
+
+.todo-frame{
+    height: 85%;
+    background-color: #272833;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px 10px;
+}
+
+.section-list .todo-frame .todo-items{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    border: 1px solid #578E90;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#check{
+    width: 25px;
+    height: 25px;
+    outline: 1px solid #6b38a9;
+    accent-color: #6b38a9;
+}
+
+/* ******************************************
+* SECTION TO ADD NEW TODO'S
+********************************************* */
+.section-add{
+
+}
+
+form{
+    font-size: medium;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 15px;
+}
+
+.form-elem{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-elem input, textarea{
+    width: 70%;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 15px 0px;
+}
+.buttons button{
+    width: 100px;
+    padding: 12px;
+}
