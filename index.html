@@ -5,8 +5,95 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo</title>
+
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="./css/app.css">
+
+    <!-- Link to Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
 </head>
 <body>
+
+    <!-- Container body for the Todo -->
+    <div class="container">
+
+        <!-- 
+            ***********************************************
+            Section to hold contents of the Todo 
+            ****************************************************
+        -->
+        <section class="section-list">
+
+            <!-- Div to hold the title and menu buttons -->
+            <div class="title">
+                <h1>Todo</h1>
+
+                <!-- Div to hold the action buttons -->
+                <div class="btns">
+                    <a href=""><i class="fa-solid fa-plus"></i></a>
+                    <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+                </div>
+                
+            </div>
+
+            <!-- Div to hold the todo forms -->
+            <div class="todo-frame">
+
+                <!-- Div to display existing todo's -->
+                <div class="todo-items">
+                    <input type="checkbox" name="check" id="check">
+                    <h6>Todo Item 1</h6>
+                    <p>(Due: 22-10-2022)</p>
+                    <i class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
+                    <i class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, reiciendis possimus in mollitia, ipsam eum architecto id culpa dolorum, quam molestias doloremque cupiditate officia. Iste voluptas illo voluptatum nobis consequatur.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- 
+            ***********************************************
+            Section to add contents to the Todo 
+            ****************************************************
+        -->
+        <section class="section-add">
+             <!-- Div to hold the title and menu buttons -->
+             <div class="title">
+                <h1>Create New Todo</h1>                
+            </div>
+
+            <!-- Div to hold the todo forms -->
+            <div class="todo-frame">
+                <form action="" method="post">
+                    <div class="form-elem">
+                        <label for="todo-title">Title:</label>
+                        <input type="text" name="todo-title" placeholder="Type in title...">
+                    </div>
+                    <div class="form-elem">
+                        <label for="todo-description">Description:</label>
+                        <textarea name="todo-description" id="description" rows="5" cols="30" placeholder="Add Description"></textarea>
+                    </div>
+                    <div class="form-elem">
+                        <label for="todo-date">Expected Completion Date:</label>
+                        <input type="date" name="todo-date" style="width: 40%;">
+                    </div>
+                    <div class="buttons">
+                        <button type="reset">Reset</button>
+                        <button type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+
+    <!-- External JS scripts -->
+    <script src="./js/app.js"></script>
     
 </body>
 </html>
