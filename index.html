@@ -66,7 +66,7 @@
                 <h1>Create New Todo</h1>                
             </div>
 
-            <!-- Div to hold the todo forms -->
+            <!-- Div to add the todo forms -->
             <div class="todo-frame">
                 <form action="" method="post">
                     <div class="form-elem">
@@ -82,12 +82,49 @@
                         <input type="date" name="todo-date" style="width: 40%;">
                     </div>
                     <div class="buttons">
-                        <button type="reset">Reset</button>
-                        <button type="submit">Create</button>
+                        <button type="reset" style="background-color: #dd571c;">Reset</button>
+                        <button type="submit" style="background-color: #15CD72;">Create</button>
                     </div>
                 </form>
             </div>
         </section>
+
+
+        <!-- 
+            ***********************************************
+            Section to Update content of the Todo 
+            ****************************************************
+        -->
+        <section class="section-update">
+            <!-- Div to hold the title and menu buttons -->
+            <div class="title">
+               <h1>Update Todo</h1>                
+           </div>
+
+           <!-- Div to add the todo forms -->
+           <div class="todo-frame">
+               <form action="" method="post">
+                   <div class="form-elem">
+                       <label for="todo-title">Title:</label>
+                       <input type="text" name="todo-title" placeholder="Type in title..." value="Todo Value">
+                   </div>
+                   <div class="form-elem">
+                       <label for="todo-description">Description:</label>
+                       <textarea name="todo-description" id="description" rows="5" cols="30" placeholder="Add Description">Todo Value
+                       </textarea>
+                   </div>
+                   <div class="form-elem">
+                       <label for="todo-date">Expected Completion Date:</label>
+                       <input type="date" name="todo-date" style="width: 40%;" value="Todo Value">
+                   </div>
+                   <div class="buttons">
+                       <button style="background-color: #dd571c;">Cancel</button>
+                       <button type="submit" style="background-color: #15CD72;">Update</button>
+                   </div>
+               </form>
+           </div>
+       </section>
+
 
     </div>
 
