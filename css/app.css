@@ -38,7 +38,7 @@ body{
 * SECTION TO LIST THE TODO'S
 ********************************************* */
 .section-list{
-    width: 80%;
+    width: 40%;
     height: 90%;
     border-radius: 12px;
     background-color: #20212C;
@@ -80,15 +80,16 @@ i{
     border-radius: 12px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 15px 10px;
+    justify-content: center;
+    padding: 10px;
 }
 
 .section-list .todo-frame .completeness{
-    width: 45%;
+    width: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 10px 0px;
 }
 
 .section-list .todo-frame .completeness .todo-items{
@@ -101,7 +102,7 @@ i{
     border: 1px solid #578E90;
     border-radius: 12px;
     padding: 20px;
-    width: 95%;
+    width: 88%;
 }
 
 .section-list .todo-frame .completeness .todo-complete{
@@ -121,7 +122,7 @@ i{
     width: 20px;
     height: 20px;
     outline: 1px solid #6b38a9;
-    accent-color: #6b38a9;
+    accent-color: #6b38a9;    
 }
 
 .dateP{
@@ -136,7 +137,7 @@ i{
     display: none;
 }
 
-form{
+.form{
     font-size: medium;
     display: flex;
     flex-direction: column;
