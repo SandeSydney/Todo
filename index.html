@@ -23,7 +23,7 @@
             Section to hold all contents of the Todo 
             ****************************************************
         -->
-        <section class="section-list">
+        <section class="section-list" id="todoList">
 
             <!-- Div to hold the title and menu buttons -->
             <div class="title">
@@ -31,8 +31,8 @@
 
                 <!-- Div to hold the action buttons -->
                 <div class="btns">
-                    <a href=""><i class="fa-solid fa-plus"></i></a>
-                    <a href=""><i class="fa-solid fa-ellipsis"></i></a>
+                    <i onclick="displayElement('todoList', 'todoAdd')" class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-ellipsis"></i>
                 </div>
                 
             </div>
@@ -76,7 +76,7 @@
             Section to add contents to the Todo 
             ****************************************************
         -->
-        <section class="section-add">
+        <section class="section-add" id="todoAdd">
              <!-- Div to hold the title and menu buttons -->
              <div class="title">
                 <h1>Create New Todo</h1>                
@@ -102,6 +102,7 @@
                         <button type="submit" style="background-color: #15CD72;">Create</button>
                     </div>
                 </form>
+                <button onclick="displayElement('todoAdd','todoList')">back</button>
             </div>
         </section>
 
@@ -111,7 +112,7 @@
             Section to Update content of the Todo 
             ****************************************************
         -->
-        <section class="section-update">
+        <section class="section-update" id="todoUpdate">
             <!-- Div to hold the title and menu buttons -->
             <div class="title">
                <h1>Update Todo</h1>                
