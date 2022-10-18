@@ -10,7 +10,7 @@ body{
     color: #dddddf;
 }
 
-section{
+/* section{
     border-radius: 12px;
     background-color: #20212C;
     width: 40%;
@@ -20,7 +20,7 @@ section{
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-}
+} */
 
 .container{
     height: 100%;
@@ -38,8 +38,15 @@ section{
 * SECTION TO LIST THE TODO'S
 ********************************************* */
 .section-list{
-    display: none;
     width: 80%;
+    height: 90%;
+    border-radius: 12px;
+    background-color: #20212C;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
 }
 
 .title{
@@ -115,7 +122,6 @@ form{
     font-size: medium;
     display: flex;
     flex-direction: column;
-    padding: 10px;
     gap: 15px;
 }
 
@@ -151,5 +157,5 @@ form{
 * SECTION TO UPDATE TODO'S
 ********************************************* */
 .section-update{
-    /* display: none; */
+    display: none;
 }
