@@ -2,13 +2,16 @@
 const todosList = []
 
 
-// ***********************************************************
-// delete todo element
-// **********************************************************
-const deleteTodo = (index) => {
-    todosList.splice(idx, 1);
-    reload();
-}
+// // ***********************************************************
+// // delete todo element
+// // **********************************************************
+// const deleteTodo = (index) => {
+//     let currentTodo = todosList[index]
+    
+//     console.log("Clicked Delete Btn!")
+
+//     // reload();
+// }
 
 
 
@@ -112,10 +115,6 @@ function reload() {
     // loop through the todos and for each, create a section in dom
     todosList.forEach((element,id) => {
 
-        // index of element
-        const elementIndex = todosList.indexOf(element)
-        console.log(elementIndex);
-
         let parentDiv = document.createElement('div')
         parentDiv.className = "completeness"
         // variable to store date value
@@ -155,42 +154,60 @@ const updateTodo = (id) => {
     let todoDesc = currentTodo.desc
     let todoExpected = currentTodo.expectedDate
 
+    let updateInnerHtml = ''
+    let updtParent = ''
+
     // close current view and display the update form
     displayElement('todoList', 'todoUpdate')
 
-    // create body of the update form
-    let updtParent = document.createElement("div")
-    updtParent.className = "todo-frame"
-    let updateInnerHtml = 
-    `
-        <div class="form">
-            <div class="form-elem">
-                <label for="todo-update-title">Title:</label>
-                <input type="text" name="todo-title" id="updateTitle" placeholder="Type in title..." value="${todoTitle}">
+    if(!document.getElementById('todoFrame')){
+
+        // create body of the update form
+        updtParent = document.createElement("div")
+        console.log(updtParent);
+        updtParent.className = "todo-frame"
+        updtParent.id = "todoFrame"
+
+        updateInnerHtml = 
+        `
+            <div class="form">
+                <div class="form-elem">
+                    <label for="todo-update-title">Title:</label>
+                    <input type="text" name="todo-title" id="updateTitle" placeholder="Type in title..." value="${todoTitle}">
+                </div>
+                <div class="form-elem">
+                    <label for="todo-update-description">Description:</label>
+                    <textarea name="todo-description" id="updateDescription" rows="5" cols="30">
+                    ${todoDesc}
+                    </textarea>
+                </div>
+                <div class="form-elem">
+                    <label for="todo-update-expected-date">Expected Completion Date:</label>
+                    <input type="date" name="todo-update-expected-date" id="updateExpected" style="width: 40%;" value="${todoExpected}">
+                </div>
+                <div class="form-elem">
+                    <label for="todo-update-completed-date">Completed Date:</label>
+                    <input type="date" name="todo-update-completed-date" id="updateCompleted" style="width: 40%;">
+                </div>
+                <div class="buttons">
+                    <button style="background-color: #dd571c;" onclick="displayElement('todoUpdate','todoList')">Cancel</button>
+                    <button onclick="todoUpdateSubmit(${todoId})" style="background-color: #15CD72;">Update</button>
+                </div>
             </div>
-            <div class="form-elem">
-                <label for="todo-update-description">Description:</label>
-                <textarea name="todo-description" id="updateDescription" rows="5" cols="30">
-                ${todoDesc}
-                </textarea>
-            </div>
-            <div class="form-elem">
-                <label for="todo-update-expected-date">Expected Completion Date:</label>
-                <input type="date" name="todo-update-expected-date" id="updateExpected" style="width: 40%;" value="${todoExpected}">
-            </div>
-            <div class="form-elem">
-                <label for="todo-update-completed-date">Completed Date:</label>
-                <input type="date" name="todo-update-completed-date" id="updateCompleted" style="width: 40%;">
-            </div>
-            <div class="buttons">
-                <button style="background-color: #dd571c;" onclick="displayElement('todoUpdate','todoList')">Cancel</button>
-                <button onclick="todoUpdateSubmit(${todoId})" style="background-color: #15CD72;">Update</button>
-            </div>
-        </div>
-    `
+        `
+        document.getElementById('todoUpdate').appendChild(updtParent)
+    }
+
+    
+    
     // Add the inner details to the body of update form
     updtParent.innerHTML = updateInnerHtml
 
     // append update form to the host
-    document.getElementById('todoUpdate').appendChild(updtParent)
+    // document.getElementById('todoUpdate').appendChild(updtParent)
+
+    console.log(updtParent);
+    console.log(updateInnerHtml);
+
+
 }
