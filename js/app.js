@@ -1,17 +1,21 @@
 // Create objects to hold todos data
-const todosList = []
+const todosList = JSON.parse(localStorage.getItem('todosList')) || []
 
+console.log(todosList)
 
-// // ***********************************************************
-// // delete todo element
-// // **********************************************************
-// const deleteTodo = (index) => {
-//     let currentTodo = todosList[index]
-    
-//     console.log("Clicked Delete Btn!")
+// ***********************************************************
+// delete todo element
+// **********************************************************
+const deleteTodo = (element,index) => {
+    element.parentElement.parentElement.remove()
 
-//     // reload();
-// }
+    let currentTodo = todosList[index]
+    todosList.splice(index, 1);
+
+    localStorage.setItem("todosList", JSON.stringify(todosList));
+
+    reload()
+}
 
 
 
@@ -19,6 +23,13 @@ const todosList = []
 // delete todo element
 // **********************************************************
 const todoUpdateSubmit = (index) => {
+    if(!document.getElementById('updateTitle').value.trim()){
+        alert('Enter a title todo');
+        return;
+    } else if(!document.getElementById('updateExpected').value.trim()){
+        alert('A date is required');
+        return;
+    }
     let currentTodo = todosList[index]
 
     currentTodo.title = document.getElementById('updateTitle').value
@@ -28,6 +39,8 @@ const todoUpdateSubmit = (index) => {
 
     // close current view and display the update form
     displayElement('todoUpdate','todoList')
+
+    localStorage.setItem("todosList", JSON.stringify(todosList));
 
     reload();
 }
@@ -80,6 +93,9 @@ function addData() {
         completeDate: todoCompletedDate,
     })
 
+    // Push collected data to the local storage
+    localStorage.setItem("todosList", JSON.stringify(todosList));
+
     // Clear input fields
     document.getElementById('todoTitle').value = ''
     document.getElementById('todoDesc').value = ''
@@ -110,7 +126,9 @@ function clearChildren() {
 // ************************************************
 function reload() {
     // first clear all the inner children
-    clearChildren()
+    // clearChildren()
+
+    console.log(todosList, "***")
 
     // loop through the todos and for each, create a section in dom
     todosList.forEach((element,id) => {
@@ -130,7 +148,7 @@ function reload() {
                 <h6 id="title">${element.title}</h6>
                 <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
                 <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
-                <i onclick="deleteTodo(${id}" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;" onclick=""></i>
+                <i onclick="deleteTodo(this,${id})" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
                 <p id="desc" style="flex-basis: 100%; display: flex; justify-content:center;"><b>Description:&nbsp;</b>${element.description} </p>
             `
         // modify contents of the parentDiv to accomodate innerHTML
@@ -151,8 +169,10 @@ const updateTodo = (id) => {
 
     // collect form variables from todo list
     let todoTitle = currentTodo.title
-    let todoDesc = currentTodo.desc
+    let todoDesc = currentTodo.description
     let todoExpected = currentTodo.expectedDate
+
+    console.log(todoDesc);
 
     let updateInnerHtml = ''
     let updtParent = ''
@@ -211,3 +231,11 @@ const updateTodo = (id) => {
 
 
 }
+
+window.onload = () => {
+    reload()
+}
+
+
+
+  
