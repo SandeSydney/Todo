@@ -1,6 +1,9 @@
 // Create objects to hold todos data
 const todosList = JSON.parse(localStorage.getItem('todosList')) || []
 
+// Varible to hold complete todos
+const completedTodos = []
+
 console.log(todosList)
 
 // ***********************************************************
@@ -35,7 +38,6 @@ const todoUpdateSubmit = (index) => {
     currentTodo.title = document.getElementById('updateTitle').value
     currentTodo.description = document.getElementById('updateDescription').value
     currentTodo.expectedDate = document.getElementById('updateExpected').value
-    currentTodo.completeDate = document.getElementById('updateCompleted').value
 
     // close current view and display the update form
     displayElement('todoUpdate','todoList')
@@ -82,7 +84,6 @@ function addData() {
     let todoTitle = document.getElementById('todoTitle').value
     let todoDescription = document.getElementById('todoDesc').value
     let todoExpectedDate = document.getElementById('todoExpected').value
-    let todoCompletedDate = document.getElementById('todoCompleted').value
 
 
     // add collected data to Todos object
@@ -90,7 +91,6 @@ function addData() {
         title: todoTitle,
         description: todoDescription,
         expectedDate: todoExpectedDate,
-        completeDate: todoCompletedDate,
     })
 
     // Push collected data to the local storage
@@ -100,7 +100,6 @@ function addData() {
     document.getElementById('todoTitle').value = ''
     document.getElementById('todoDesc').value = ''
     document.getElementById('todoExpected').value = ''
-    document.getElementById('todoCompleted').value = ''
 
     // switch back to main window
     displayElement('todoAdd', 'todoList')
@@ -126,9 +125,7 @@ function clearChildren() {
 // ************************************************
 function reload() {
     // first clear all the inner children
-    // clearChildren()
-
-    console.log(todosList, "***")
+    clearChildren()
 
     // loop through the todos and for each, create a section in dom
     todosList.forEach((element,id) => {
@@ -204,10 +201,6 @@ const updateTodo = (id) => {
                 <div class="form-elem">
                     <label for="todo-update-expected-date">Expected Completion Date:</label>
                     <input type="date" name="todo-update-expected-date" id="updateExpected" style="width: 40%;" value="${todoExpected}">
-                </div>
-                <div class="form-elem">
-                    <label for="todo-update-completed-date">Completed Date:</label>
-                    <input type="date" name="todo-update-completed-date" id="updateCompleted" style="width: 40%;">
                 </div>
                 <div class="buttons">
                     <button style="background-color: #dd571c;" onclick="displayElement('todoUpdate','todoList')">Cancel</button>
