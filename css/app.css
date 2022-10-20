@@ -162,10 +162,9 @@ i{
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 15px 0px;
-}
-.buttons button{
+}button{
     width: 100px;
-    padding: 12px;
+    padding: 10px;
     border-radius: 5px;
     border: none;
     color: #dddddf;
