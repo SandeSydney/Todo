@@ -118,11 +118,19 @@ i{
     width: 88%;
 }
 
-#check{
-    width: 20px;
-    height: 20px;
-    outline: 1px solid #6b38a9;
-    accent-color: #6b38a9;    
+.complete{
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 5px; 
+}
+
+.uncomplete{
+    border: 1px solid;
+    border-radius: 8px;
+    color: #dddddf;
+    background-color: #6b38a9;
+    padding: 5px; 
 }
 
 .dateP{
@@ -162,7 +170,8 @@ i{
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 15px 0px;
-}button{
+}
+.btn{
     width: 100px;
     padding: 10px;
     border-radius: 5px;
