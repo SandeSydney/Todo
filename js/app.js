@@ -2,28 +2,27 @@
 const todosList = JSON.parse(localStorage.getItem('todosList')) || []
 
 // Varible to hold complete todos
-const completedTodos = JSON.parse(localStorage.getItem('completedTodo')) || []
+const completedTodos = JSON.parse(localStorage.getItem('completedTodos')) || []
 
 
-// // **********************************************************
-// // Function to listen to checkbox events
-// // **********************************************************
-// const checkListener = (element)=>{
-//     // check status of checkbox of passed element
-//     if(element.style.checked){
-//         // find the todo marked as complete
-//         let todoCompleted = todosList.splice(element.parentElement.id, 1)
-//         // save change from the todoList
-//         localStorage.setItem("todosList", JSON.stringify(todosList))
-//         // Add the todo to the list with completed todos
-//         completedTodos.push(...todoCompleted)
-//         // save the completed tasks
-//         localStorage.setItem("completedTodo", JSON.stringify(completedTodos))
-//     }
+// **********************************************************
+// Function to listen to complete button
+// **********************************************************
+const completeListener = (element)=>{
+    // find the todo marked as complete
+    let todoCompleted = todosList.splice(element.parentElement.id, 1)
+    // save change from the todoList
+    localStorage.setItem("todosList", JSON.stringify(todosList))
+    // Add the todo to the list with completed todos
+    completedTodos.push(...todoCompleted)
+    // save the completed tasks
+    localStorage.setItem("completedTodo", JSON.stringify(completedTodos))
+
+    console.log("Here you are!");
     
-//     reload()
-//     reloadCompleted()
-// }
+    reload()
+    reloadCompleted()
+}
 
 // **********************************************************
 //  Function to display the completed todos
@@ -39,12 +38,12 @@ const reloadCompleted = ()=>{
     clearChildren()
 
     // Check for contents of the todo list and if empty return message
-    if(todosList.length == 0){
+    if(completedTodos.length == 0){
         let msg = document.createElement("p")
         msg.style.textAlign = 'center'
         msg.style.margin = "10px"
         msg.id = "noCompleted"
-        msg.innerHTML = `No tasks completed. Check one above.`
+        msg.innerHTML = `No tasks completed.`
         document.getElementById('completeTodo').appendChild(msg)
     }
 
@@ -84,7 +83,7 @@ const reloadCompleted = ()=>{
         parentDiv.appendChild(childDiv)
         let todoInnerHtml =
             `    
-                <input onchange="" type="checkbox" name="check" id="check" checked="true">
+                <button class="uncomplete" onclick="completeListener(this)">Done</button>
                 <h6 id="title">${element.title}</h6>
                 <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
                 // <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
@@ -110,10 +109,15 @@ const deleteTodo = (element,index) => {
     element.parentElement.parentElement.remove()
 
     todosList.splice(index, 1);
+    completedTodos.splice(index, 1);
+
 
     localStorage.setItem("todosList", JSON.stringify(todosList));
+    localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
+
 
     reload()
+    reloadCompleted()
 }
 
 
@@ -197,6 +201,8 @@ function addData() {
     document.getElementById('todoDesc').value = ''
     document.getElementById('todoExpected').value = ''
 
+    console.log(todosList);
+
     // switch back to main window
     displayElement('todoAdd', 'todoList')
 
@@ -229,7 +235,7 @@ function reload() {
         msg.style.textAlign = 'center'
         msg.style.margin = "10px"
         msg.id = "noTodos"
-        msg.innerHTML = `Hi, Kindly click the plus sign (+) to add a todo item`
+        msg.innerHTML = `Hi, Kindly click the plus (+) above to add a todo item`
         document.getElementById('todoDisplay').appendChild(msg)
     }
     // loop through the todos and for each, create a section in dom
@@ -246,7 +252,7 @@ function reload() {
         parentDiv.appendChild(childDiv)
         let todoInnerHtml =
             `    
-                <input onchange="" type="checkbox" name="check" id="check">
+                <button class="complete" onclick="completeListener(this)">Done</button>
                 <h6 id="title">${element.title}</h6>
                 <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
                 <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
@@ -310,8 +316,8 @@ const updateTodo = (id) => {
                     <input type="date" name="todo-update-expected-date" id="updateExpected" style="width: 40%;" value="${todoExpected}">
                 </div>
                 <div class="buttons">
-                    <button style="background-color: #dd571c;" onclick="displayElement('todoUpdate','todoList')">Cancel</button>
-                    <button onclick="todoUpdateSubmit(${todoId})" style="background-color: #15CD72;">Update</button>
+                    <button class="btn" style="background-color: #dd571c;" onclick="displayElement('todoUpdate','todoList')">Cancel</button>
+                    <button class="btn" onclick="todoUpdateSubmit(${todoId})" style="background-color: #15CD72;">Update</button>
                 </div>
             </div>
         `
