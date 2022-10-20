@@ -1,10 +1,92 @@
+// Whenever the browser window loads
+window.onload = () => {
+    noTodos()
+    reload()
+    reloadCompleted()
+}
+
 // Create objects to hold todos data
 const todosList = JSON.parse(localStorage.getItem('todosList')) || []
 
 // Varible to hold complete todos
-const completedTodos = []
+const completedTodos = JSON.parse(localStorage.getItem('completedTodo')) || []
 
-console.log(todosList)
+// **********************************************************
+// Function to listen to checkbox events
+// **********************************************************
+const checkListener = (element)=>{
+    // find the todo marked as complete
+    let todoCompleted = todosList.splice(element.parentElement.id, 1)
+    // Add the todo to the list with completed todos
+    completedTodos.push(...todoCompleted)
+
+    localStorage.setItem("completedTodo", JSON.stringify(completedTodos))
+    
+    reload()
+    reloadCompleted()
+}
+
+// **********************************************************
+//  Function to display the completed todos
+// **********************************************************
+const reloadCompleted = ()=>{
+    // first clear all the inner children
+    clearChildren()
+
+    // loop through the completed todos and for each, create a section in dom
+    completedTodos.forEach((element,id) => {
+        let parentDiv = document.createElement('div')
+        parentDiv.className = "completeness"
+        // variable to store date value
+        let todoDate = new Date(element.expectedDate)
+        // Capture the submitted date
+        let dateSubmitted = new Date()
+
+
+        // *******************************************
+        // Calculate difference in days of submission
+        // *******************************************
+        const daysDifference = ()=>{
+            // get difference in milliseconds then convert to days
+            let differenceMilli = todoDate.getTime() - dateSubmitted.getTime()
+            let differenceDays = Math.ceil(differenceMilli / (1000*60*60*24))
+
+            // Return message to DOM about timeliness of message
+            if(differenceDays > 0 ){
+                return `Task completed ${differenceDays} early.`
+            } else if(differenceDays < 0){
+                return `Task completed ${differenceDays} late.`
+            } else{
+                return `Task completed on time`
+            }
+        }
+
+
+        // variable to hold inner html for the todos
+        let childDiv = document.createElement("div")
+        childDiv.className = "todo-complete"
+        childDiv.id = "completeTodo"
+        parentDiv.appendChild(childDiv)
+        let todoInnerHtml =
+            `    
+                <input onchange="" type="checkbox" name="check" id="check" checked="true">
+                <h6 id="title">${element.title}</h6>
+                <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
+                // <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
+                <i onclick="deleteTodo(this,${id})" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
+                <p id="desc" style="flex-basis: 100%; display: flex; justify-content:center;"><b>Description:&nbsp;</b>${element.description} </p>
+                <p id="completedMessage" style="flex-basis: 100%; display: flex; justify-content:center;">${daysDifference()}</p>
+            `
+        // modify contents of the parentDiv to accomodate innerHTML
+        childDiv.innerHTML = todoInnerHtml
+
+        // append the created todo div to the host element
+        document.getElementById('completeTodo').appendChild(parentDiv)
+
+    })
+}
+
+
 
 // ***********************************************************
 // delete todo element
@@ -12,7 +94,6 @@ console.log(todosList)
 const deleteTodo = (element,index) => {
     element.parentElement.parentElement.remove()
 
-    let currentTodo = todosList[index]
     todosList.splice(index, 1);
 
     localStorage.setItem("todosList", JSON.stringify(todosList));
@@ -23,7 +104,7 @@ const deleteTodo = (element,index) => {
 
 
 // ***********************************************************
-// delete todo element
+// Update todo element
 // **********************************************************
 const todoUpdateSubmit = (index) => {
     if(!document.getElementById('updateTitle').value.trim()){
@@ -110,6 +191,21 @@ function addData() {
 
 
 // ************************************************
+// Function to display to user to add todo
+// ************************************************
+const noTodos = () => {
+    if(todosList.length == 0){
+        let msg = document.createElement("p")
+        msg.style.textAlign = 'center'
+        msg.id = "noTodos"
+        msg.innerHTML = `Hi, Kindly click the plus sign (+) to add a todo item`
+        document.getElementById('todoDisplay').appendChild(msg)
+    }
+}
+
+
+
+// ************************************************
 // Function to clear all children
 // ************************************************
 function clearChildren() {
@@ -127,34 +223,46 @@ function reload() {
     // first clear all the inner children
     clearChildren()
 
-    // loop through the todos and for each, create a section in dom
-    todosList.forEach((element,id) => {
+    // Check for contents of the todo list and if empty return message
+    if(todosList.length == 0){
+        let msg = document.createElement("p")
+        msg.style.textAlign = 'center'
+        msg.style.margin = "10px"
+        msg.id = "noTodos"
+        msg.innerHTML = `Hi, Kindly click the plus sign (+) to add a todo item`
+        document.getElementById('todoDisplay').appendChild(msg)
+    } else{
+        // loop through the todos and for each, create a section in dom
+        todosList.forEach((element,id) => {
 
-        let parentDiv = document.createElement('div')
-        parentDiv.className = "completeness"
-        // variable to store date value
-        let todoDate = element.expectedDate
-        // variable to hold inner html for the todos
-        let childDiv = document.createElement("div")
-        childDiv.className = "todo-items"
-        childDiv.id = "incompleteTodo"
-        parentDiv.appendChild(childDiv)
-        let todoInnerHtml =
-            `    
-                <input onchange="" type="checkbox" name="check" id="check">
-                <h6 id="title">${element.title}</h6>
-                <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
-                <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
-                <i onclick="deleteTodo(this,${id})" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
-                <p id="desc" style="flex-basis: 100%; display: flex; justify-content:center;"><b>Description:&nbsp;</b>${element.description} </p>
-            `
-        // modify contents of the parentDiv to accomodate innerHTML
-        childDiv.innerHTML = todoInnerHtml
+            let parentDiv = document.createElement('div')
+            parentDiv.className = "completeness"
+            // variable to store date value
+            let todoDate = element.expectedDate
+            // variable to hold inner html for the todos
+            let childDiv = document.createElement("div")
+            childDiv.className = "todo-items"
+            childDiv.id = "incompleteTodo"
+            parentDiv.appendChild(childDiv)
+            let todoInnerHtml =
+                `    
+                    <input onchange="" type="checkbox" name="check" id="check">
+                    <h6 id="title">${element.title}</h6>
+                    <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
+                    <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
+                    <i onclick="deleteTodo(this,${id})" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
+                    <p id="desc" style="flex-basis: 100%; display: flex; justify-content:center;"><b>Description:&nbsp;</b>${element.description} </p>
+                `
+            // modify contents of the parentDiv to accomodate innerHTML
+            childDiv.innerHTML = todoInnerHtml
 
-        // append the created todo div to the host element
-        document.getElementById('todoDisplay').appendChild(parentDiv)
+            // append the created todo div to the host element
+            document.getElementById('todoDisplay').appendChild(parentDiv)
 
-    })
+        })
+    }
+
+    
 }
 
 // ************************************************
@@ -223,12 +331,4 @@ const updateTodo = (id) => {
     console.log(updateInnerHtml);
 
 
-}
-
-window.onload = () => {
-    reload()
-}
-
-
-
-  
+}  
