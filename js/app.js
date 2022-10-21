@@ -8,21 +8,40 @@ const completedTodos = JSON.parse(localStorage.getItem('completedTodos')) || []
 // **********************************************************
 // Function to listen to complete button
 // **********************************************************
-const completeListener = (element)=>{
+const completeListener = (index)=>{
     // find the todo marked as complete
-    let todoCompleted = todosList.splice(element.parentElement.id, 1)
+    let todoCompleted = todosList.splice(index, 1)
     // save change from the todoList
     localStorage.setItem("todosList", JSON.stringify(todosList))
     // Add the todo to the list with completed todos
     completedTodos.push(...todoCompleted)
     // save the completed tasks
-    localStorage.setItem("completedTodo", JSON.stringify(completedTodos))
+    localStorage.setItem("completedTodos", JSON.stringify(completedTodos))
 
     console.log("Here you are!");
     
     reload()
     reloadCompleted()
 }
+
+
+// **********************************************************
+// Function to listen to uncomplete button
+// **********************************************************
+const uncompleteListener = (index)=>{
+    // find the todo marked as complete
+    let todoUncompleted = completedTodos.splice(index, 1)
+    // save change from the todoList
+    localStorage.setItem("completedTodos", JSON.stringify(completedTodos))
+    // Add the todo to the todo list end
+    todosList.push(...todoUncompleted)
+    // save the completed tasks
+    localStorage.setItem("todosList", JSON.stringify(todosList))
+    
+    reload()
+    reloadCompleted()
+}
+
 
 // **********************************************************
 //  Function to display the completed todos
@@ -43,7 +62,7 @@ const reloadCompleted = ()=>{
         msg.style.textAlign = 'center'
         msg.style.margin = "10px"
         msg.id = "noCompleted"
-        msg.innerHTML = `No tasks completed.`
+        msg.innerHTML = `No tasks completed. Create one from above.`
         document.getElementById('completeTodo').appendChild(msg)
     }
 
@@ -67,9 +86,9 @@ const reloadCompleted = ()=>{
 
             // Return message to DOM about timeliness of message
             if(differenceDays > 0 ){
-                return `Task completed ${differenceDays} early.`
+                return `Task completed ${differenceDays} days early.`
             } else if(differenceDays < 0){
-                return `Task completed ${differenceDays} late.`
+                return `Task completed ${differenceDays*-1} days late.`
             } else{
                 return `Task completed on time`
             }
@@ -83,10 +102,10 @@ const reloadCompleted = ()=>{
         parentDiv.appendChild(childDiv)
         let todoInnerHtml =
             `    
-                <button class="uncomplete" onclick="completeListener(this)">Done</button>
+                <button class="uncomplete" onclick="uncompleteListener(${id})">Mark As Incomplete</button>
                 <h6 id="title">${element.title}</h6>
-                <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
-                // <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
+                <!-- <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
+                <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i> -->
                 <i onclick="deleteTodo(this,${id})" class="fa-sharp fa-solid fa-trash" style="color: #ff0000;"></i>
                 <p id="desc" style="flex-basis: 100%; display: flex; justify-content:center;"><b>Description:&nbsp;</b>${element.description} </p>
                 <p id="completedMessage" style="flex-basis: 100%; display: flex; justify-content:center;">${daysDifference()}</p>
@@ -252,7 +271,7 @@ function reload() {
         parentDiv.appendChild(childDiv)
         let todoInnerHtml =
             `    
-                <button class="complete" onclick="completeListener(this)">Done</button>
+                <button class="complete" onclick="completeListener(${id})">Done</button>
                 <h6 id="title">${element.title}</h6>
                 <p id="todoDate">(Due: <span class="dateP">${todoDate}</span>)</p>
                 <i onclick="updateTodo(${id})" class="fa-solid fa-pen-to-square" style="color: #ffa500;"></i>
@@ -329,11 +348,6 @@ const updateTodo = (id) => {
     // Add the inner details to the body of update form
     updtParent.innerHTML = updateInnerHtml
 
-    // append update form to the host
-    // document.getElementById('todoUpdate').appendChild(updtParent)
-
-    console.log(updtParent);
-    console.log(updateInnerHtml);
 }  
 
 // Whenever the browser window loads
