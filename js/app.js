@@ -122,7 +122,7 @@ const reloadCompleted = ()=>{
 
 
 // ***********************************************************
-// delete todo element
+// delete one todo element
 // **********************************************************
 const deleteTodo = (element,index) => {
     element.parentElement.parentElement.remove()
@@ -135,6 +135,25 @@ const deleteTodo = (element,index) => {
     localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
 
 
+    reload()
+    reloadCompleted()
+}
+
+
+
+// ***********************************************************
+// delete all todo elements
+// **********************************************************
+const deleteAll = () => {
+    todosList.forEach((index)=>{
+        todosList.splice(index, todosList.length);
+        localStorage.setItem("todosList", JSON.stringify(todosList));
+    })
+    completedTodos.forEach((index)=>{
+        completedTodos.splice(index, completedTodos.length);
+        localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
+    })
+    
     reload()
     reloadCompleted()
 }
